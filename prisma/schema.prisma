@@ -13,13 +13,24 @@ datasource db {
 }
 
 model User {
-    id           String @id @default(uuid())
+    id           String   @id @default(uuid())
     name         String
-    email        String @unique
+    email        String   @unique
     password     String
     salt         String
-    refreshToken String @map("refresh_token")
-    accessToken  String @map("access_token")
+    refreshToken String   @map("refresh_token")
+    accessToken  String   @map("access_token")
+    threads      Thread[]
 
     @@map("users")
+}
+
+model Thread {
+    id        String   @id @default(uuid())
+    text      String
+    timestamp DateTime @default(now())
+    userId    String   @unique @map("user_id")
+    user      User     @relation(fields: [userId], references: [id])
+
+    @@map("threads")
 }
