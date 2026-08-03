@@ -1,7 +1,7 @@
 import ThreadService from "../../services/thread.ts";
 import UserService from "../../services/user.ts";
 import type { JWTUserData } from "../user/types.ts";
-import type { CreatePostPayload, Thread } from "./types.ts";
+import type { CreatePostPayload, EditPostPayload, Thread } from "./types.ts";
 
 const nested = {
     user: async (thread: Thread) => {
@@ -23,12 +23,12 @@ const queries = {
 
 const mutations = {
     createThread: async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
-        const thread = await ThreadService.createPost(text, id);
+        const thread = await ThreadService.createThread(text, id);
         return thread;
     },
 
-    editThread: async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
-        const thread = await ThreadService.editPost(text, id);
+    editThread: async (_: any, { text, threadId }: EditPostPayload) => {
+        const thread = await ThreadService.editThread(text, threadId);
         return thread;
     }
 };

@@ -11,3 +11,8 @@ export interface Thread {
 export interface CreatePostPayload {
     text: string;
 }
+
+export interface EditPostPayload {
+    threadId: string;
+    text: string;
+}

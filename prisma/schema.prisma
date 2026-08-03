@@ -29,7 +29,7 @@ model Thread {
     id        String   @id @default(uuid())
     text      String
     timestamp DateTime @default(now())
-    userId    String   @unique @map("user_id")
+    userId    String   @map("user_id")
     user      User     @relation(fields: [userId], references: [id])
 
     @@map("threads")

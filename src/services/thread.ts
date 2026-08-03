@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma.ts";
 
 class ThreadService {
-    public static async createPost(text: string, userId: string) {
+    public static async createThread(text: string, userId: string) {
         const thread = await prisma.thread.create({
             data: { text, userId }
         })
@@ -9,10 +9,10 @@ class ThreadService {
         return thread;
     }
 
-    public static async editPost(text: string, userId: string) {
+    public static async editThread(text: string, threadId: string) {
         const thread = await prisma.thread.update({
-            where: { id: userId },
-            data: { text, userId }
+            where: { id: threadId },
+            data: { text }
         })
 
         return thread;
