@@ -12,7 +12,7 @@ export interface JWTUserData {
     id: string;
     name: string;
     email: string;
-    validAuth: boolean;
+    validAuth?: boolean;
 }
 
 export interface ChangePasswordPayload {

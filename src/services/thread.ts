@@ -5,7 +5,7 @@ class ThreadService {
         const thread = await prisma.thread.create({
             data: { text, userId }
         })
-        
+
         return thread;
     }
 
@@ -13,6 +13,14 @@ class ThreadService {
         const thread = await prisma.thread.update({
             where: { id: userId },
             data: { text, userId }
+        })
+
+        return thread;
+    }
+
+    public static async getThreadsByUser(userId: string) {
+        const thread = await prisma.thread.findMany({
+            where: { userId }
         })
 
         return thread;

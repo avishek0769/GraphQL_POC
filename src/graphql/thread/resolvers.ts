@@ -4,12 +4,14 @@ import type { JWTUserData } from "../user/types.ts";
 import type { CreatePostPayload } from "./types.ts";
 
 const queries = {
-    getThreadsByUser: asyncHandler(async (_: any, payload: any) => {
-        
+    getThreadsByUser: asyncHandler(async (_: any, { id }: { id: string }) => {
+        const threads = await ThreadService.getThreadsByUser(id);
+        return threads;
     }),
 
-    getCurrentUserThreads: asyncHandler(async (_: any, payload: any) => {
-        
+    getCurrentUserThreads: asyncHandler(async (_: any, payload: any, { id }: JWTUserData) => {
+        const threads = await ThreadService.getThreadsByUser(id);
+        return threads;
     }),
 };
 
