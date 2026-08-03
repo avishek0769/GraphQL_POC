@@ -25,7 +25,7 @@ class UserService {
     }
 
     public static async createUser({ name, email, password }: CreateUserPayload) {
-        const salt = randomBytes(32).toHex();
+        const salt = randomBytes(32).toString("hex");
         const hashedPassword = UserService.hashPassword(password, salt);
 
         const user = await prisma.user.create({
@@ -75,10 +75,11 @@ class UserService {
         if (hashedOldPassword != user.password) {
             throw Error("Old Password is wrong");
         }
-
+        
+        const hashedNewPassword = UserService.hashPassword(newPassword, user.salt)
         await prisma.user.update({
             where: { id: user.id },
-            data: { password: newPassword }
+            data: { password: hashedNewPassword }
         });
     }
 

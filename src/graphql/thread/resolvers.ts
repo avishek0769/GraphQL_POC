@@ -1,4 +1,3 @@
-import asyncHandler from "../../lib/asyncHandler.ts";
 import ThreadService from "../../services/thread.ts";
 import UserService from "../../services/user.ts";
 import type { JWTUserData } from "../user/types.ts";
@@ -11,27 +10,27 @@ const nested = {
 }
 
 const queries = {
-    getThreadsByUser: asyncHandler(async (_: any, { id }: { id: string }) => {
+    getThreadsByUser: async (_: any, { id }: { id: string }) => {
         const threads = await ThreadService.getThreadsByUser(id);
         return threads;
-    }),
+    },
 
-    getCurrentUserThreads: asyncHandler(async (_: any, payload: any, { id }: JWTUserData) => {
+    getCurrentUserThreads: async (_: any, payload: any, { id }: JWTUserData) => {
         const threads = await ThreadService.getThreadsByUser(id);
         return threads;
-    }),
+    },
 };
 
 const mutations = {
-    createThread: asyncHandler(async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
+    createThread: async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
         const thread = await ThreadService.createPost(text, id);
         return thread;
-    }),
+    },
 
-    editThread: asyncHandler(async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
+    editThread: async (_: any, { text }: CreatePostPayload, { id }: JWTUserData) => {
         const thread = await ThreadService.editPost(text, id);
         return thread;
-    })
+    }
 };
 
 export const resolvers = { queries, mutations, nested };

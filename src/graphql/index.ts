@@ -35,6 +35,7 @@ async function createGraphqlServer() {
                 ...Thread.resolvers.mutations
             }
         },
+        introspection: true
     });
 
     await gqlServer.start();

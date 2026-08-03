@@ -15,13 +15,13 @@ async function init() {
     app.use(
         "/graphql",
         expressMiddleware(await createGraphqlServer(), {
-            context: async ({ req, res }) => {
+            context: async ({ req }) => {
                 const token = req.headers["authorization"];
                 if (!token || Array.isArray(token)) {
-                    return { validAuth: false };
+                    return { validAuth: false, id: "", name: "", email: "" };
                 }
 
-                const user = jwt.verify(token, process.env.ACCESS_TOKEN!) as JWTUserData;
+                const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as JWTUserData;
                 return { ...user, validAuth: true };
             },
         }),
