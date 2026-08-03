@@ -19,6 +19,13 @@ async function createGraphqlServer() {
             }
         `,
         resolvers: {
+            User: {
+                ...User.resolvers.nested,
+            },
+            Thread: {
+                ...Thread.resolvers.nested,
+            },
+
             Query: { 
                 ...User.resolvers.queries,
                 ...Thread.resolvers.queries

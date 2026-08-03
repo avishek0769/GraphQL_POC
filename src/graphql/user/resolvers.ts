@@ -1,6 +1,13 @@
 import asyncHandler from "../../lib/asyncHandler.ts";
+import ThreadService from "../../services/thread.ts";
 import UserService from "../../services/user.ts";
-import type { ChangePasswordPayload, CreateUserPayload, GetUserTokenPayload, JWTUserData } from "./types.ts";
+import type { ChangePasswordPayload, CreateUserPayload, GetUserTokenPayload, JWTUserData, User } from "./types.ts";
+
+const nested = {
+    threads: async (user: User) => {
+        return await ThreadService.getThreadsByUser(user.id);
+    }
+}
 
 const queries = {
     getUserToken: asyncHandler(async (_: any, payload: GetUserTokenPayload) => {
@@ -35,4 +42,4 @@ const mutations = {
     }),
 };
 
-export const resolvers = { queries, mutations };
+export const resolvers = { queries, mutations, nested };

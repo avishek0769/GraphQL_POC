@@ -1,3 +1,16 @@
+import type { Thread } from "../thread/types.ts";
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+    salt: string;
+    refreshToken: string;
+    accessToken: string;
+    threads: [Thread]
+}
+
 export interface GetUserTokenPayload {
     id: string
 }
