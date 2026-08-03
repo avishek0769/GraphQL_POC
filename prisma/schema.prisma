@@ -26,11 +26,11 @@ model User {
 }
 
 model Thread {
-    id        String   @id @default(uuid())
+    id        String @id @default(uuid())
     text      String
-    timestamp DateTime @default(now())
-    userId    String   @map("user_id")
-    user      User     @relation(fields: [userId], references: [id])
+    timestamp String
+    userId    String @map("user_id")
+    user      User   @relation(fields: [userId], references: [id])
 
     @@map("threads")
 }

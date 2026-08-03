@@ -2,7 +2,7 @@ export const typedefs = `#graphql
     type Thread {
         id: ID!
         text: String!
-        timestamp: Int
+        timestamp: String
         userId: ID!
         user: User
     }

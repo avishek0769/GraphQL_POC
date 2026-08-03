@@ -1,7 +1,7 @@
 import ThreadService from "../../services/thread.ts";
 import UserService from "../../services/user.ts";
 import type { JWTUserData } from "../user/types.ts";
-import type { CreatePostPayload, EditPostPayload, Thread } from "./types.ts";
+import type { CreatePostPayload, DeletePostPayload, EditPostPayload, Thread } from "./types.ts";
 
 const nested = {
     user: async (thread: Thread) => {
@@ -30,6 +30,15 @@ const mutations = {
     editThread: async (_: any, { text, threadId }: EditPostPayload) => {
         const thread = await ThreadService.editThread(text, threadId);
         return thread;
+    },
+
+    deleteThread: async (_: any, { threadId }: DeletePostPayload) => {
+        try {
+            await ThreadService.deleteThread(threadId);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 };
 
