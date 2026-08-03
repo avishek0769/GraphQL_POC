@@ -3,11 +3,15 @@ import UserService from "../../services/user.ts";
 import type { ChangePasswordPayload, CreateUserPayload, GetUserTokenPayload, JWTUserData } from "./types.ts";
 
 const queries = {
-    getUserToken: (_: any, payload: GetUserTokenPayload) => {},
+    getUserToken: asyncHandler(async (_: any, payload: GetUserTokenPayload) => {
+        const tokens = await UserService.getToken(payload.id);
+        return tokens;
+    }),
 
-    getCurrentUser: (_: any, payload: any, context: JWTUserData) => {},
-
-    getUsers: () => {},
+    getCurrentUser: asyncHandler(async (_: any, payload: any, context: JWTUserData) => {
+        const user = await UserService.getUserByIdentifier(context.id);
+        return user;
+    }),
 };
 
 const mutations = {

@@ -82,7 +82,12 @@ class UserService {
         });
     }
 
-    public static getToken() {}
+    public static async getToken(userId: string) {
+        const user = await prisma.user.findUnique({
+            where: { id: userId }
+        })
+        return { accessToken: user!.accessToken, refreshToken: user!.refreshToken }
+    }
 }
 
 export default UserService;
