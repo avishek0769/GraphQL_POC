@@ -9,11 +9,6 @@ const nested = {
 }
 
 const queries = {
-    getUserToken: async (_: any, payload: GetUserTokenPayload) => {
-        const tokens = await UserService.getToken(payload.id);
-        return tokens;
-    },
-
     getCurrentUser: async (_: any, payload: any, context: JWTUserData) => {
         if(!context.validAuth) throw new Error("Not authenticated");
 
