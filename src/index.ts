@@ -41,7 +41,10 @@ async function startGraphqlServer() {
                 getUser: () => ({ name: "Avishek", phone: 989898, isAdmin: true }),
 
                 getTodos: () => [{ id: 1, text: "This is a todo", userId: 1 }],
-                getTodo: (parent, { id }) => ({ id, text: "This is a todo", userId: 1 }) // Find the todo in DB with "id"
+                getTodo: (parent, { id }, context) => { // Find the todo in DB with "id"
+                    console.log(context)
+                    return { id, text: "This is a todo", userId: 1 }
+                }
             },
             // Mutation: {
 
@@ -54,7 +57,18 @@ async function startGraphqlServer() {
 
     await server.start();
 
-    app.use("/graphql", expressMiddleware(server));
+    app.use("/graphql", expressMiddleware(server, {
+        context: async ({ req, res }) => {
+            const token = req.headers["authorization"];
+
+            if (token === "token1") {
+                return { isAuth: true };
+            }
+
+            res.status(401).json({ message: "Wrong token" });
+            return { isAuth: false };
+        }
+    }));
 
     app.listen(8000, () => console.log("Server running at 8000...."));
 }
