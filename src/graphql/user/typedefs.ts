@@ -9,12 +9,4 @@ export const typedefs = `#graphql
         accessToken: String
         threads: [Thread]
     }
-
-    type Thread {
-        id: ID!
-        text: String!
-        timestamp: Int
-        userId: ID!
-        user: User
-    }
 `;
