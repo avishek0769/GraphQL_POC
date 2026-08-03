@@ -9,6 +9,8 @@ const queries = {
     }),
 
     getCurrentUser: asyncHandler(async (_: any, payload: any, context: JWTUserData) => {
+        if(!context.validAuth) throw new Error("Not authenticated");
+
         const user = await UserService.getUserByIdentifier(context.id);
         return user;
     }),
@@ -26,6 +28,8 @@ const mutations = {
     }),
 
     changePassword: asyncHandler(async (_: any, payload: ChangePasswordPayload, context: JWTUserData) => {
+        if(!context.validAuth) throw new Error("Not authenticated");
+
         await UserService.changePassword(context.id, payload.oldPassword, payload.newPassword);
         return true;
     }),

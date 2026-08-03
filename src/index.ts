@@ -18,12 +18,11 @@ async function init() {
             context: async ({ req, res }) => {
                 const token = req.headers["authorization"];
                 if (!token || Array.isArray(token)) {
-                    res.status(452).json({ message: "Access Token not available" });
-                    throw new Error("Access Token not available");
+                    return { validAuth: false };
                 }
 
                 const user = jwt.verify(token, process.env.ACCESS_TOKEN!) as JWTUserData;
-                return user;
+                return { ...user, validAuth: true };
             },
         }),
     );
