@@ -9,11 +9,23 @@ async function startGraphqlServer() {
 
     const server = new ApolloServer({
         typeDefs: `#graphql
-            
+            type User {
+                name: String!
+                phone: Int
+                isAdmin: Boolean!
+            }
+
+            type Query {
+                getName: String!
+                getUsers: [User]
+                getUser: User!
+            }
         `,
         resolvers: {
             Query: {
-                
+                getName: () => "Avishek Okay!!",
+                getUsers: () => [{ name: "Avishek", phone: 989898, isAdmin: true }],
+                getUser: () => ({ name: "Avishek", phone: 989898, isAdmin: true }),
             },
             // Mutation: {
 
