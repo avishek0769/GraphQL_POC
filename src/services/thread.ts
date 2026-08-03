@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.ts";
 class ThreadService {
     public static async createThread(text: string, userId: string) {
         const thread = await prisma.thread.create({
-            data: { text, userId, timestamp: Date.now().toLocaleString() }
+            data: { text, userId, timestamp: new Date().toISOString() }
         })
 
         return thread;
