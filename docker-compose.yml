@@ -1,0 +1,16 @@
+services:
+    postgres:
+        container_name: postgres
+        image: postgres
+        ports:
+            - 5432:5432
+        volumes:
+            - postgres_data:/var/lib/postgresql
+        environment:
+            POSTGRES_USER: graphql_poc
+            POSTGRES_DB: graphql_poc
+            POSTGRES_PASSWORD: graphql_poc
+
+volumes:
+    postgres_data:
+        external: true
